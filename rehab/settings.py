@@ -33,7 +33,8 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'bootstrap3',
-    'capp.apps.CappConfig',
+    'capp',
+    # 'capp.apps.CappConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -78,13 +79,12 @@ WSGI_APPLICATION = 'rehab.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': rehab,
-        'USER':rkepha,
-        'PASSWORD':KR
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'rehab',
+        'USER': 'rkepha',
+        'PASSWORD': 'KR',
+     }
     }
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
