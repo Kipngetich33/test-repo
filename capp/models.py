@@ -10,8 +10,10 @@ class Profile(models.Model):
     email = models.EmailField()
     phone_number = models.CharField(max_length = 10,blank =True)
     addiction = models.CharField(max_length = 200)
-    duration = models.DateTimeField(auto_now_add=True, null=True)
     age = models.CharField(max_length = 10,blank =True)
+
+    def __str__(self):
+        return self.first_name
 
 
 class Question(models.Model):
@@ -19,10 +21,29 @@ class Question(models.Model):
     date_asked = models.DateTimeField(auto_now_add=True, null=True)
     user = models.ForeignKey(User)
 
+
+    def __str__(self):
+        return self.user.username
+
+    @classmethod
+    def get_questions(cls):
+        questions = cls.objects.all()
+        return questions
+
+
 class Comment(models.Model):
     opinion = models.CharField(max_length=200)
     question = models.ForeignKey(Question)
     user = models.ForeignKey(User)
+
+    def __str__(self):
+        return self.user.username
+
+    @classmethod
+    def get_comments(cls,question_id):
+        comments = cls.objects.filter(question=question_id)
+        return comments
+
 
 class Session(models.Model):
     Availability = models.BooleanField(default=True)

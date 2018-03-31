@@ -1,15 +1,25 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
-from .models import Image,Comment,Profile
+from .models import Profile, Question, Comment, Session
 
 
-class ImagePostForm(forms.ModelForm):
+
+class ProfileForm(forms.ModelForm):
     '''
     Class to create a form for an authenticated user to create Post
     '''
     class Meta:
-        model = Image
-        fields = ['image','image_name', 'image_caption']
+        model = Profile
+
+        fields = ['first_name','last_name', 'email', 'phone_number', 'addiction']
+
+class QuestionForm(forms.ModelForm):
+    '''
+    classs that creates profile update form
+    '''
+    class Meta:
+        model = Question
+        fields = ['topic']
 
 class CommentForm(forms.ModelForm):
     '''
@@ -17,12 +27,4 @@ class CommentForm(forms.ModelForm):
     '''
     class Meta:
         model = Comment
-        fields = ['comment']
-
-class ProfileForm(forms.ModelForm):
-    '''
-    classs that creates profile update form
-    '''
-    class Meta:
-        model = Profile
-        fields = ['profile_photo', 'user']
+        fields = ['opinion']

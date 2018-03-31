@@ -33,8 +33,7 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'bootstrap3',
-    'capp',
-    # 'capp.apps.CappConfig',
+    'capp.apps.CappConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
