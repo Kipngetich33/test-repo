@@ -11,5 +11,20 @@
 
  {% block content %}
 
-<h1>Welcome</h1>
+
+      <hr style="color:rgb(19, 175, 167);">
+
+
+      <section class="col-md-5">
+        <p uk-margin>
+          <a href="{% url 'ViewSessions' %}">
+            <button class="uk-button uk-button-default uk-button-large">View Sessions</button>
+          </a>
+          <a href="{% url 'ViewSessions' %}"> 
+            <button class="uk-button uk-button-primary uk-button-large">My Appointments</button>
+          </a>
+        </p>
+      
+      </section>
+
 {% endblock %}

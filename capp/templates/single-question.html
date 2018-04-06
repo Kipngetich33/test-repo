@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load staticfiles%}
+{% load bootstrap3 %}
+<!-- Styles block -->
+{% block styles %}
+
+    {{block.super}}
+      <link rel="stylesheet" href="{% static 'css/index.css'%}">
+
+{% endblock %}
+
+ {% block content %}
+
+   <div class="col-md-1">
+
+   </div>
+      <hr style="color:rgb(19, 175, 167);">
+
+      <section class="col-md-5">
+
+          <div class="wrap col-md-12"style="">
+            <div class="box col-md-12" >
+              <div class="" >
+                <div style="margin-bottom:30px;">
+                  {{question.topic|upper}}
+                   <span style="color:rgb(35, 106, 180)">{{question.user.username}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+      </section>
+
+
+
+{% endblock %}

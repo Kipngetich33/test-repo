@@ -15,6 +15,11 @@ class Profile(models.Model):
     def __str__(self):
         return self.first_name
 
+class Record(models.Model):
+    date_checked = models.DateTimeField(auto_now_add=True, null=True)
+    problem = models.CharField(max_length = 200)
+    user = models.ForeignKey(User)
+
 
 class Question(models.Model):
     topic = models.CharField(max_length=150)
@@ -33,6 +38,7 @@ class Question(models.Model):
 
 class Comment(models.Model):
     opinion = models.CharField(max_length=200)
+    date_posted = models.DateTimeField(auto_now_add=True, null=True)
     question = models.ForeignKey(Question)
     user = models.ForeignKey(User)
 
@@ -44,9 +50,19 @@ class Comment(models.Model):
         comments = cls.objects.filter(question=question_id)
         return comments
 
+class Doctor(models.Model):
+    name = models.CharField(max_length=30)
+
 
 class Session(models.Model):
     Availability = models.BooleanField(default=True)
-    Duration = models.DateTimeField(auto_now_add=True, null=True)
-    sloted_date = models.DateTimeField(null=True)
-    Doctor = models.CharField(max_length=30)
+    sloted_date = models.DateTimeField(auto_now_add=True, null=True)
+    duration = models.TimeField( blank=True,null=True)
+    # contact_date = models.DateField(_(u"Conversation Date"), blank=True)
+    # contact_time = models.TimeField( blank=True)
+    doctor = models.ForeignKey(Doctor)
+
+    @classmethod
+    def get_sessions(cls):
+        sessions = cls.objects.all()
+        return sessions

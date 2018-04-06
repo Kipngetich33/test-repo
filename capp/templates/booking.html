@@ -1,0 +1,53 @@
+
+{% extends 'base.html' %}
+{% load static%}
+<!-- Styles block -->
+{% block styles %}
+
+    {{block.super}}
+      <link rel="stylesheet" href="{% static 'css/index.css'%}">
+
+{% endblock %}
+
+ {% block content %}
+
+
+      <hr style="color:rgb(19, 175, 167);">
+
+
+      <section class="col-md-5">
+        {% for session in sessions %}
+          <div class="wrap col-md-12"style="">
+              <div class="box well col-sm-12" >
+                {% if session.Availability == True %}
+                <div class="" style="margin-bottom:30px;">
+                  <span style="color:rgb(35, 106, 180)">Available</span>
+                </div>
+                {% else %}
+                <div class="" style="margin-bottom:30px;">
+                  <span style="color:rgb(35, 106, 180)">Booked</span>
+                </div>
+                {% endif %}
+
+                <div class="" style="margin-bottom:30px;">
+                  <span style="color:rgb(35, 106, 180)">Dr. {{session.Doctor}}</span>
+                </div>
+
+                <div class="" style="margin-bottom:30px;">
+                   <span style="color:rgb(35, 106, 180)">{{session.Duration}}</span>
+                </div>
+
+                <div class="" style="margin-bottom:30px;">
+                   <span style="color:rgb(35, 106, 180)">{{session.sloted_date}}</span>
+                </div>
+
+
+            </div>
+            <button type="button" name="button" class="btn btn-primary"> Book</button>
+          </div>
+                <hr style="color:rgb(19, 175, 167);">
+        {% endfor %}
+
+      </section>
+
+{% endblock %}

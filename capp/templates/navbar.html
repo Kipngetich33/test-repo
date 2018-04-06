@@ -1,28 +1,56 @@
 <!--The search form above-->
-    <div class="col-sm-6 col-md-6">
-            {% if user.is_authenticated %}
-            <ul>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" role="button" aria-expanded="false">Account
-                          <span class="caret"></span>
-                      </a>
-                <ul class="dropdown-menu" role="menu">
-                  <li>
-                    <a href="">Home</a>
-                  </li>
-                  <li>
-                    <a href="/accounts/password/change">Change Password</a>
-                  </li>
-                  <li>
-                    <a href="/logout">Logout</a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-            {% else %}
-            <li>
-              <a class='btn btn-default' href="/accounts/login">Login</a>
-            </li>
 
-            {% endif %}
-          </div>
+            <nav class="uk-navbar-container" uk-navbar >
+                <div class="uk-navbar-left" style="margin-right: 200px;">
+
+                    <ul class="uk-navbar-nav" style="margin-right: 200px;">
+                        <li class="uk-active"><a href="#">Active</a></li>
+                        <li><a href="#">Item</a></li>
+                        <li>
+                            <a href="#">Parent</a>
+                            <div class="uk-navbar-dropdown">
+                                <ul class="uk-nav uk-navbar-dropdown-nav">
+                                    <li class="uk-active"><a href="#">Active</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                     </ul>
+
+                </div>
+
+
+
+
+                <div class="uk-navbar-right" style="">
+
+                          <p uk-margin>
+          <a href="{% url 'ViewSessions' %}">
+            <button class="uk-button uk-button-default uk-button-large">View Sessions</button>
+          </a>
+          <a href="{% url 'ViewSessions' %}">
+            <button class="uk-button uk-button-primary uk-button-large">My Appointments</button>
+          </a>
+        </p>
+                  <ul class="uk-navbar-nav">
+                      <li>
+                            <a href="#">Account</a>
+                            <div class="uk-navbar-dropdown">
+                              {% if user.is_authenticated %}
+                                <ul class="uk-nav uk-navbar-dropdown-nav">
+                                    <li class="uk-active"><a href="#">Home</a></li>
+                                    <li><a href="/accounts/password/change">Change Password</a></li>
+                                    <li><a href="/logout">Logout</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        {% else %}
+                        <li><a href="/accounts/login">Login</a></li>
+                        {% endif %}
+
+                  </ul>
+                </div>
+
+            </nav>
