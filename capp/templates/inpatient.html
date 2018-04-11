@@ -1,0 +1,44 @@
+
+{% extends 'base.html' %}
+{% load static%}
+<!-- Styles block -->
+{% block styles %}
+
+    {{block.super}}
+      <link rel="stylesheet" href="{% static 'css/index.css'%}">
+
+{% endblock %}
+
+ {% block content %}
+
+
+      <hr style="color:rgb(19, 175, 167);">
+
+
+      <section class="col-md-5">
+        {% if vacancies %}
+            {% for vacancy in vacancies %}
+                {% if vacancy.Availability == True %}
+                <div class="wrap col-md-12"style="">
+                    <div class="box well col-sm-12" >
+                      <div class="" style="margin-bottom:30px;">
+                        <span style="color:rgb(35, 106, 180)">Available</span>
+                      </div>
+
+                      <a href="{% url 'ReserveInpatient' vacancy.id %}">
+                        <button type="button" name="button" class="btn btn-primary"> Book</button>
+                      </a>
+                  </div>
+                </div>
+                <hr style="color:rgb(19, 175, 167);">
+                {% endif %}
+            {% endfor %}
+        {% else %}
+        <div class="" style="margin-bottom:30px;">
+          <span style="color:rgb(35, 106, 180)"> Sorry {{request.user.username|title}}, There are no available slots. Come back later</span>
+        </div>
+        {% endif %}
+
+      </section>
+
+{% endblock %}

@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
-from .models import Profile, Question, Comment, Session
+from .models import Profile, Question, Comment, Session, Record
 
 
 
@@ -19,7 +19,7 @@ class QuestionForm(forms.ModelForm):
     '''
     class Meta:
         model = Question
-        fields = ['topic']
+        fields = ['topic','narrative']
 
 class CommentForm(forms.ModelForm):
     '''
@@ -28,3 +28,11 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['opinion']
+
+class RecordForm(forms.ModelForm):
+    '''
+    class that creates the patient record form
+    '''
+    class Meta:
+        model = Record
+        fields =['problem']

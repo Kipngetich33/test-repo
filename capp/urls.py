@@ -11,6 +11,17 @@ urlpatterns = [
     url(r'^single/question/(\d+)', views.single_question, name='SingleQuestion'),
     url(r'^comment/(\d+)', views.post_comment, name='Comment'),
     url(r'^view/booking/', views.unbooked_session, name='ViewSessions'),
+    url(r'^view/slots/', views.unbooked_vacancies, name='ViewSlots'),
+    url(r'^view/reserve/(\d+)', views.reserve_session, name='Reserve'),
+    url(r'^view/reserve/inpatient(\d+)', views.inpatient_reservation, name='ReserveInpatient'),
+    url(r'^save/record/', views.save_record, name='SaveRecord'),
+    url(r'^view/records/', views.view_records, name='ViewRecord'),
+    url(r'^save/profile/', views.profile, name='Profile'),
+    url(r'^view/profile/(\d+)', views.view_profile, name='ViewProfile'),
+    url(r'^view/outpatient/bookings/', views.view_outpatient, name='OutBook'),
+    url(r'^view/inpatient/bookings/', views.view_inpatient, name='InBook'),
+
+    # url(r'^view/message/', views.message, name='Message'),
     url(r'^accounts/', include('registration.backends.simple.urls')),
 
 ]
