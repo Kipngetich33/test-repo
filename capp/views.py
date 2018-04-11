@@ -143,10 +143,10 @@ def reserve_session(request,session_id):
 
 
     # send confirmation message to the user
-    # username = 'Nanda'
-    # apiKey = 'ccd6a5c49876e24e7408a7f2d5f8d6e04a3a8d56f00d9920874ec94ff656d36b'
+    # username = username1
+    # apiKey = apiKey1
     #
-    # to = '0712567583'
+    # to = user_contact
     # message = 'This is I rehab Welcome message '
     #
     # gateway = AfricasTalkingGateway(username, apiKey)
@@ -182,10 +182,10 @@ def inpatient_reservation(request,inpatient_id):
     vacancy.save()
 
     # send confirmation message to the user
-    # username = 'Nanda'
-    # apiKey = 'ccd6a5c49876e24e7408a7f2d5f8d6e04a3a8d56f00d9920874ec94ff656d36b'
+    # username = username1
+    # apiKey = apiKey1
     #
-    # to = '0717073062'
+    # to = user_contact
     # message = 'Welcome to iRehab. You have reserved a slot'
     #
     # gateway = AfricasTalkingGateway(username, apiKey)
