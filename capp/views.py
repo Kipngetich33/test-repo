@@ -16,7 +16,8 @@ def index(request):
     title = 'BADILI'
     current_user = request.user
     profile = Profile.get_profile(current_user.id)
-    return render(request, 'index.html', { "title": title,  "profile": profile})
+    number = profile.phone_number
+    return render(request, 'index.html', { "title": title,  "number":number, "profile": profile})
 
 
 @login_required(login_url='/accounts/login/')
@@ -131,6 +132,7 @@ def unbooked_vacancies(request):
 @login_required(login_url='/accounts/login/')
 def reserve_session(request,session_id):
     title = 'BADILI'
+    profile = Profile.get_profile(current_user.id)
     sessions = Session.get_sessions
     session = Session.objects.get(id = session_id)
     session.Availability = False
