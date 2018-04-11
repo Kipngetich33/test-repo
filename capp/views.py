@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import Http404, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from .config import username1, apikey1
 from .models import Profile, Question, Comment, Session, Inpatient, Record, Appointment, Reservations
 from .forms import ProfileForm, QuestionForm, CommentForm, RecordForm
 # from africastalking.AfricasTalkingGateway import AfricasTalkingGateway, AfricasTalkingGatewayException
@@ -133,6 +134,7 @@ def unbooked_vacancies(request):
 def reserve_session(request,session_id):
     title = 'BADILI'
     profile = Profile.get_profile(current_user.id)
+    user_contact = profile.phone_number
     sessions = Session.get_sessions
     session = Session.objects.get(id = session_id)
     session.Availability = False
