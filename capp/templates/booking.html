@@ -11,50 +11,55 @@
 
  {% block content %}
 
+<section class="col-md-10">
 
-      <hr style="color:rgb(19, 175, 167);">
-
-
-      <section class="col-md-5">
-        {% if sessions %}
-        {% for session in sessions %}
-          <div class="wrap col-md-12"style="">
-              <div class="box well col-sm-12" >
-                {% if session.Availability == False %}
-                <div class="" style="margin-bottom:30px;">
-                  <span style="color:rgb(35, 106, 180)">Available</span>
-                </div>
-
-                <div class="" style="margin-bottom:30px;">
-                  <span style="color:rgb(35, 106, 180)">Dr. {{session.doctor.name}}</span>
-                </div>
-
-                <div class="" style="margin-bottom:30px;">
-                   <span style="color:rgb(35, 106, 180)">Duration: {{session.duration}}</span>
-                </div>
-
-                <div class="" style="margin-bottom:30px;">
-                   <span style="color:rgb(35, 106, 180)">Date: {{session.sloted_date}}</span>
-                </div>
-                <a href="{% url 'Reserve' session.id %}">
-                  <button type="button" name="button" class="btn btn-primary"> Book</button>
-                </a>
-                {% else %}
-                <div class="" style="margin-bottom:30px;">
-                  <span style="color:rgb(35, 106, 180)">No available sessions</span>
-                </div>
-                {% endif %}
+  <h1 uk-parallax="opacity: 0,1; y: -100,0; scale: 2,1; viewport: 0.5;"style="color:rgb(9, 248, 255);font-size:50px;margin-left:20px;" >iRehab</h1>
+</section>
+      <section class="col-md-8 col-md-offset-2">
 
 
-            </div>
-          </div>
-                <hr style="color:rgb(19, 175, 167);">
-        {% endfor %}
-        {% else %}
-        <div class="" style="margin-bottom:30px;">
-          <span style="color:rgb(35, 106, 180)"> Sorry {{request.user.username|title}}, There are no available sessions. Come back later</span>
-        </div>
-        {% endif %}
+                <table class="uk-table uk-table-hover uk-table-condensed">
+                    <caption><h4>Reserve an out-patient session</h4></caption>
+                    {% if sessions %}
+                    <caption><h5 style="font-size:15px;color:rgb(20, 221, 106);">{{sessions|length}} sessions available</h5></caption>
+
+                    <thead>
+                        <tr>
+                          <th style="font-size:15px;color:rgb(9, 248, 255);">DOCTOR</th>
+                          <th style="font-size:15px;color:rgb(9, 248, 255);">DURATION</th>
+                          <th style="font-size:15px;color:rgb(9, 248, 255);">DATE</th>
+                          <th style="font-size:15px;color:rgb(9, 248, 255);">ACTION</th>
+                        </tr>
+                    </thead>
+
+                      {% for session in sessions %}
+                        {% if session.Availability == False %}
+                        <tbody>
+                            <tr>
+                                <td>DR. {{session.doctor.name | upper }}</td>
+                                <td>{{session.duration }}</td>
+                                <td>{{session.sloted_date }}</td>
+                                <td>
+                                   <a href="{% url 'Reserve' session.id %}">
+                                      <!-- <button type="button" name="button" class="btn btn-primary"> Reserve</button> -->
+                                      <button class="uk-button uk-button-primary uk-button-small" style="background-color:rgb(9, 248, 255);font-size:12px;">Reserve</button>
+
+                                  </a>
+                                </td>
+                            </tr>
+                        {% else %}
+                        <tbody>
+                        <tr>
+                            <td></td>
+                            <td>NO sessionS</td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                      </table>
+                      {% endif %}
+
+                    {% endfor %}
+                    {% endif %}
 
       </section>
 

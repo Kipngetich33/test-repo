@@ -17,8 +17,14 @@ def index(request):
     title = 'BADILI'
     current_user = request.user
     profile = Profile.get_profile(current_user.id)
-    number = profile.phone_number
-    return render(request, 'index.html', { "title": title,  "number":number, "profile": profile})
+    return render(request, 'index.html', { "title": title, "profile": profile})
+
+def choose(request):
+    title = 'BADILI'
+    current_user = request.user
+    profile = Profile.get_profile(current_user.id)
+    return render(request, 'choose.html', { "title": title, "profile": profile})
+
 
 
 @login_required(login_url='/accounts/login/')
@@ -63,17 +69,12 @@ def save_record(request):
     if request.method == 'POST':
         form = RecordForm(request.POST, request.FILES)
         if form.is_valid():
-            if Record.get_user_count(current_user.id) > 0:
-                record = form.save(commit = False)
-                record.user = current_user
-                record.Recurrent = True
-                record.save()
-            else:
-                record = form.save(commit = False)
-                record.user = current_user
-                record.Recurrent = False
-                record.save()
-        return redirect('SaveRecord')
+            record = form.save(commit = False)
+            record.user = current_user
+            record.Recurrent = True
+            record.save()
+
+        return redirect('Choose')
     else:
         form = RecordForm()
     return render(request, 'record.html', {"form": form})

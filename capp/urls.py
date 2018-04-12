@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^view/profile/(\d+)', views.view_profile, name='ViewProfile'),
     url(r'^view/outpatient/bookings/', views.view_outpatient, name='OutBook'),
     url(r'^view/inpatient/bookings/', views.view_inpatient, name='InBook'),
+    url(r'^choose/service', views.choose, name='Choose'),
 
     # url(r'^view/message/', views.message, name='Message'),
     url(r'^accounts/', include('registration.backends.simple.urls')),

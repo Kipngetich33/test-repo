@@ -16,39 +16,42 @@
    <!-- <div class="uk-height-large uk-background-cover uk-overflow-hidden uk-light uk-flex uk-flex-top" style="background-image: url('{{STATIC_URL}}../images/rehab.jpeg);background-size:cover;"> -->
 
      <div class="uk-width-1-2@m uk-text-center uk-margin-auto uk-margin-auto-vertical">
-         <h1 uk-parallax="opacity: 0,1; y: -100,0; scale: 2,1; viewport: 0.5;"style="color:rgb(9, 248, 255);font-size:100px;" >iRehab{{number}}</h1>
+         <h1 uk-parallax="opacity: 0,1; y: -100,0; scale: 2,1; viewport: 0.5;"style="color:rgb(9, 248, 255);font-size:100px;" >iRehab</h1>
 
          <p uk-margin>
-           <a href="{% url 'ViewSessions' %}">
-             <button class="uk-button uk-button-primary uk-button-large" style="background-color:rgb(9, 248, 255);font-size:10px;">Book Out-patient Sessions</button>
+           <a href="{% url 'Choose' %}">
+             <button class="uk-button uk-button-primary uk-button-large" style="background-color:rgb(9, 248, 255);font-size:10px;">Get Started</button>
            </a>
-           <a href="{% url 'ViewSessions' %}" style="margin:50px;">
-             <button class="uk-button uk-button-primary uk-button-large" style="border-color:rgb(9, 248, 255);font-size:10px;">Book in-patient session</button>
-           </a>
+
          </p>
 
 
 
-                   {% if profile.user_type == 'admin' %}
-                         <section class=""style="margin-top:40px;">
-                             <p uk-margin>
-                                 <a href="{% url 'OutBook' %}">
-                                   <button class="uk-button uk-button-secondary uk-button-large" style="background-color:rgb(9, 248, 255);font-size:15px;">Out-Patient</button>
-                                 </a>
-
-                                 <a href="{% url 'InBook' %}">
-                                   <button class="uk-button uk-button-secondary uk-button-large" style="border-color:rgb(9, 248, 255);font-size:15px;">In-Patient</button>
-                                 </a>
-
-                                 <a href="{% url 'ViewSessions' %}">
-                                   <button class="uk-button uk-button-primary uk-button-large" style="background-color:rgb(9, 248, 255);">View Records</button>
-                                 </a>
-                             </p>
-                         </section>
-                   {% endif %}
      </div>
  </div>
-<div class="col-md-4 col-md-offset-4">
+
+<div class="col-md-6">
+
+                    {% if profile.user_type == 'admin' %}
+                          <section class=""style="margin-top:40px;">
+                              <p uk-margin>
+                                  <a href="{% url 'OutBook' %}">
+                                    <button class="uk-button uk-button-secondary uk-button-large" style="background-color:rgb(9, 248, 255);font-size:15px;">Out-Patient</button>
+                                  </a>
+
+                                  <a href="{% url 'InBook' %}">
+                                    <button class="uk-button uk-button-secondary uk-button-large" style="border-color:rgb(9, 248, 255);font-size:15px;">In-Patient</button>
+                                  </a>
+
+                                  <a href="{% url 'ViewSessions' %}">
+                                    <button class="uk-button uk-button-primary uk-button-large" style="background-color:rgb(9, 248, 255););font-size:15px;">View Records</button>
+                                  </a>
+                              </p>
+                          </section>
+                    {% endif %}
+                  </div>
+
+<div class="col-md-6">
 
   <p uk-parallax="opacity: 0,1; y: 100,0; scale: 0.5,1; viewport: 0.5;"style="color:rgb(9, 248, 255);font-size:20px;position:auto;margin-top:40px;">Welcome to the ultimate road to transformation.</p>
 </div>

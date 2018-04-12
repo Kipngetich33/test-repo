@@ -32,13 +32,14 @@
                     <caption><h3>In-Patient Reservations</h3></caption>
                     {% if reservations %}
                     <caption><h5 style="font-size:15px;color:rgb(20, 221, 106);">{{reservations|length}} Patients</h5></caption>
-                    {% endif %}
+
                     <thead>
                         <tr>
                             <th style="font-size:15px;color:red;">PATIENT</th>
                             <th style="font-size:15px;color:red;">STARTING DATE</th>
                             <th style="font-size:15px;color:red;">FINISHING DATE</th>
                         </tr>
+                    </thead>
 
                       {% for reservation in reservations %}
                         {% if reservation.Availability == False %}
@@ -59,8 +60,8 @@
                       </table>
                       {% endif %}
 
-
                     {% endfor %}
+                    {% endif %}
 
       </section>
 
