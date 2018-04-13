@@ -11,7 +11,8 @@
 """
 
 import urllib
-import urllib
+from urllib.request import HTTPError
+from  six.moves.urllib.parse import urlencode
 import json
 
 class AfricasTalkingGatewayException(Exception):
@@ -576,12 +577,12 @@ class AfricasTalkingGateway:
                 headers['authToken'] = authToken_
 
             if data_ is not None:
-                data    = urllib.urlencode(data_)
+                data    = urlencode(data_)
                 request = urllib.Request(urlString, data, headers = headers)
             else:
                 request = urllib.Request(urlString, headers = headers)
-            response = urllib.urlopen(request)
-        except urllib.HTTPError as e:
+            response = urlopen(request)
+        except HTTPError as e:
             raise AfricasTalkingGatewayException(e.read())
         else:
             self.responseCode = response.getcode()

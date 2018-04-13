@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from .config import username1, apikey1
 from .models import Profile, Question, Comment, Session, Inpatient, Record, Appointment, Reservations
 from .forms import ProfileForm, QuestionForm, CommentForm, RecordForm
-# from africastalking.AfricasTalkingGateway import AfricasTalkingGateway, AfricasTalkingGatewayException
+from africastalking.AfricasTalkingGateway import AfricasTalkingGateway, AfricasTalkingGatewayException
 
 from wsgiref.util import FileWrapper
 import mimetypes
@@ -122,6 +122,7 @@ def single_question(request,question_id):
 def unbooked_session(request):
     title = 'BADILI'
     sessions = Session.get_sessions
+
     return render(request, 'booking.html', { "title": title, "sessions":sessions})
 
 @login_required(login_url='/accounts/login/')
@@ -134,7 +135,7 @@ def unbooked_vacancies(request):
 @login_required(login_url='/accounts/login/')
 def reserve_session(request,session_id):
     title = 'BADILI'
-    profile = Profile.get_profile(current_user.id)
+    profile = Profile.get_profile(request.user.id)
     user_contact = profile.phone_number
     sessions = Session.get_sessions
     session = Session.objects.get(id = session_id)
@@ -142,15 +143,18 @@ def reserve_session(request,session_id):
     session.user = request.user
     session.save()
 
+    when = session.sloted_date
 
-    send confirmation message to the user
+
+    # send confirmation message to the user
     username = username1
-    apiKey = apiKey1
+    apikey = apikey1
 
     to = user_contact
-    message = 'This is I rehab Welcome message '
+    message = 'Congratulations '+ request.user.username.upper() +' for making an effort to transform.\n' 'Your have reserved a session with iRehab on '+ str(when)[:10] + ' at ' + str(when)[11:16]
 
-    gateway = AfricasTalkingGateway(username, apiKey)
+
+    gateway = AfricasTalkingGateway(username, apikey)
 
     try:
         # Thats it, hit send and we'll take care of the rest.
@@ -167,9 +171,9 @@ def reserve_session(request,session_id):
     except AfricasTalkingGatewayException as e:
         print('Encountered an error while sending: %s' % str(e))
 
-
-    #     # return HttpResponse(response, content_type='text/plain')
-
+    #
+    # #     # return HttpResponse(response, content_type='text/plain')
+    #
 
     return redirect('bookings')
 
@@ -177,34 +181,39 @@ def reserve_session(request,session_id):
 @login_required(login_url='/accounts/login/')
 def inpatient_reservation(request,inpatient_id):
     title = 'BADILI'
+    profile = Profile.get_profile(request.user.id)
+    user_contact = profile.phone_number
     vacancies = Inpatient.get_vacancies
     vacancy = Inpatient.objects.get(id = inpatient_id)
     vacancy.Availability = False
     vacancy.save()
 
+    starting = vacancy.starting_date
+    ending = vacancy.finish_date
+
     # send confirmation message to the user
-    # username = username1
-    # apiKey = apiKey1
-    #
-    # to = user_contact
-    # message = 'Welcome to iRehab. You have reserved a slot'
-    #
-    # gateway = AfricasTalkingGateway(username, apiKey)
-    #
-    # try:
-    #     # Thats it, hit send and we'll take care of the rest.
-    #
-    #     results = gateway.sendMessage(to, message)
-    #
-    #     for recipient in results:
-    #         # status is either "Success" or "error message"
-    #         print('number=%s;status=%s;messageId=%s;cost=%s' % (recipient['number'],
-    #                                                             recipient['status'],
-    #                                                             recipient['messageId'],
-    #                                                             recipient['cost']))
-    #
-    # except AfricasTalkingGatewayException as e:
-    #     print('Encountered an error while sending: %s' % str(e))
+    username = username1
+    apikey = apikey1
+
+    to = user_contact
+    message = 'Congratulations '+ request.user.username.upper() +'.\n' 'You have reserved a slot at iRehab from '+ str(starting)[:10] + ' to ' + str(ending)[:10] +' for in-patient services'
+
+    gateway = AfricasTalkingGateway(username, apikey)
+
+    try:
+        # Thats it, hit send and we'll take care of the rest.
+
+        results = gateway.sendMessage(to, message)
+
+        for recipient in results:
+            # status is either "Success" or "error message"
+            print('number=%s;status=%s;messageId=%s;cost=%s' % (recipient['number'],
+                                                                recipient['status'],
+                                                                recipient['messageId'],
+                                                                recipient['cost']))
+
+    except AfricasTalkingGatewayException as e:
+        print('Encountered an error while sending: %s' % str(e))
 
     return redirect('bookings')
 
@@ -212,12 +221,12 @@ def inpatient_reservation(request,inpatient_id):
 # def message(request):
 #         title = 'BADILI'
 #         username = 'Nanda'
-#         apiKey = 'ccd6a5c49876e24e7408a7f2d5f8d6e04a3a8d56f00d9920874ec94ff656d36b'
+#         apikey = 'ccd6a5c49876e24e7408a7f2d5f8d6e04a3a8d56f00d9920874ec94ff656d36b'
 #
 #         to = '0712567583'
 #         message = 'This is I rehab Welcome message '
 #
-#         gateway = AfricasTalkingGateway(username, apiKey)
+#         gateway = AfricasTalkingGateway(username, apikey)
 #
 #         try:
 #             # Thats it, hit send and we'll take care of the rest.
@@ -243,12 +252,12 @@ def inpatient_reservation(request,inpatient_id):
 def view_outpatient(request):
     title = 'BADILI'
     current_user = request.user
-    reservations = Session.get_sessions
+    reservations = Session.get_booked_sessions
     return render(request, 'view-out-booked.html', { "title": title,  "reservations": reservations})
 
 @login_required(login_url='/accounts/login')
 def view_inpatient(request):
     title = 'BADILI'
     current_user = request.user
-    reservations = Inpatient.get_vacancies
+    reservations = Inpatient.get_booked_vacancies
     return render(request, 'view-in-booked.html', { "title": title,  "reservations": reservations})

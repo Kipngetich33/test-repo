@@ -96,7 +96,7 @@ class Session(models.Model):
 
     @classmethod
     def get_sessions(cls):
-        sessions = cls.objects.all()
+        sessions = cls.objects.filter(Availability=True)
         return sessions
 
     @classmethod
@@ -113,9 +113,13 @@ class Inpatient(models.Model):
 
     @classmethod
     def get_vacancies(cls):
-        vacancies = cls.objects.all()
+        vacancies = cls.objects.filter(Availability=True)
         return vacancies
 
+    @classmethod
+    def get_booked_vacancies(cls):
+        vacancies = cls.objects.filter(Availability=False)
+        return vacancies
 class Reservations(models.Model):
     patient_type =  models.CharField(max_length=200,null=True, blank=True)
     user = models.ForeignKey(User)
