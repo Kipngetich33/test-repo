@@ -24,7 +24,7 @@
 
         </p>
                   <ul class="uk-navbar-nav">
-                      <li ><a href="/accounts/login" style="color:rgb(0, 0, 0);font-size:15px;">{{request.user.username | upper}}</a></li>
+                      <li ><a href="{%url 'Profile'  %}" style="color:rgb(0, 0, 0);font-size:15px;">{{request.user.username | upper}}</a></li>
                       <li>
                             <a href="#" style="color:rgb(0, 0, 0);font-size:15px;">Account</a>
                             <div class="uk-navbar-dropdown">

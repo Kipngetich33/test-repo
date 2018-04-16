@@ -16,6 +16,13 @@ class Profile(models.Model):
     def __str__(self):
         return self.first_name
 
+    def save_profile(self):
+        '''
+        Method that saves a given profile to the database
+        '''
+        self.save()
+        
+
     @classmethod
     def get_profile(cls,user_id):
         profile = cls.objects.get(id=user_id)

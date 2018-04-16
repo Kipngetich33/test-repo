@@ -15,25 +15,26 @@ import os
 @login_required(login_url='/accounts/login')
 def index(request):
     title = 'BADILI'
-    # profile = Profile.get_profile(current_user.id)
-
     current_user = request.user
-    profile = Profile.objects.update_or_create(
-    first_name=current_user.username,
-    user_id = current_user.id,
-    defaults={
-        'last_name' : 'Not yet set',
-        'phone_number' : 0,
-        'addiction' :'Not yet set',
-        'email' : 'default@mail.com'
-        })
-    
+    if_profile = Profile.objects.filter(user = current_user.id).count()
+
+    if if_profile == 0:
+        profile = Profile.objects.update_or_create(
+        user = current_user,
+        defaults={
+            'last_name' : 'Not yet set',
+            'phone_number' : 0,
+            'addiction' :'Not yet set',
+            'email' : 'default@mail.com'
+            })
+    else:
+        profile = Profile.objects.filter(user = current_user.id)
     return render(request, 'index.html', { "title": title, "profile": profile})
 
 def choose(request):
     title = 'BADILI'
     current_user = request.user
-    profile = Profile.get_profile(current_user.id)
+    profile = Profile.objects.get(user_id = current_user.id)
     return render(request, 'choose.html', { "title": title, "profile": profile})
 
 
@@ -41,13 +42,20 @@ def choose(request):
 @login_required(login_url='/accounts/login/')
 def profile(request):
     current_user = request.user
+    requested_profile = Profile.objects.get(user = current_user.id)
     if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES)
+        form = ProfileForm(request.POST)
+
         if form.is_valid():
-            profile = form.save(commit = False)
-            profile.user = current_user
-            profile.save()
-        return redirect(index)
+            requested_profile.first_name = form.cleaned_data['first_name']
+            requested_profile.last_name = form.cleaned_data['last_name']
+            requested_profile.email = form.cleaned_data['email']
+            requested_profile.phone_number = form.cleaned_data['phone_number']
+            requested_profile.addiction = form.cleaned_data['addiction']
+            requested_profile.save()
+            return redirect('bookings')
+        else:
+            print('form  is invalid')
     else:
         form = ProfileForm()
     return render(request, 'profile.html', {"form": form})
@@ -132,14 +140,23 @@ def single_question(request,question_id):
 @login_required(login_url='/accounts/login/')
 def unbooked_session(request):
     title = 'BADILI'
-    sessions = Session.get_sessions
-
+    current_user = request.user
+    current_profile = Profile.objects.get(user_id = current_user.id )
+    if current_profile.last_name == 'Not yet set':
+        return redirect('Profile')
+    else:
+        sessions = Session.get_sessions
     return render(request, 'booking.html', { "title": title, "sessions":sessions})
 
 @login_required(login_url='/accounts/login/')
 def unbooked_vacancies(request):
     title = 'BADILI'
-    vacancies = Inpatient.get_vacancies
+    current_user = request.user
+    current_profile = Profile.objects.get(user_id = current_user.id )
+    if current_profile.last_name == 'Not yet set':
+        return redirect('Profile')
+    else:
+        vacancies = Inpatient.get_vacancies
     return render(request, 'inpatient.html', { "title": title, "vacancies":vacancies})
 
 

@@ -4,14 +4,15 @@ from .models import Profile, Question, Comment, Session, Record
 
 
 
-class ProfileForm(forms.ModelForm):
+class ProfileForm(forms.Form):
     '''
-    Class to create a form for an authenticated user to create Post
-    '''
-    class Meta:
-        model = Profile
-
-        fields = ['first_name','last_name', 'email', 'phone_number', 'addiction']
+    class that creates profile update form
+    ''' 
+    first_name = forms.CharField(label='First Name',max_length = 30)
+    last_name = forms.CharField(label='Last Name',max_length = 30)
+    email = forms.EmailField(label='email',max_length = 30)
+    phone_number = forms.IntegerField(label = 'Phone Number') 
+    addiction = forms.CharField(label='Addiction',max_length = 30)
 
 class QuestionForm(forms.ModelForm):
     '''
