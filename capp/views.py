@@ -15,8 +15,19 @@ import os
 @login_required(login_url='/accounts/login')
 def index(request):
     title = 'BADILI'
+    # profile = Profile.get_profile(current_user.id)
+
     current_user = request.user
-    profile = Profile.get_profile(current_user.id)
+    profile = Profile.objects.update_or_create(
+    first_name=current_user.username,
+    user_id = current_user.id,
+    defaults={
+        'last_name' : 'Not yet set',
+        'phone_number' : 0,
+        'addiction' :'Not yet set',
+        'email' : 'default@mail.com'
+        })
+    
     return render(request, 'index.html', { "title": title, "profile": profile})
 
 def choose(request):
@@ -261,3 +272,16 @@ def view_inpatient(request):
     current_user = request.user
     reservations = Inpatient.get_booked_vacancies
     return render(request, 'view-in-booked.html', { "title": title,  "reservations": reservations})
+
+def view_test(request):
+    current_user = request.user
+    Profile.objects.update_or_create(
+    first_name=current_user.username,
+    user_id = current_user.id,
+    defaults={
+        'last_name' : 'Not yet set',
+        'phone_number' : 0,
+        'addiction' :'Not yet set',
+        'email' : 'default@mail.com'
+        })
+    return render(request,'test.html')

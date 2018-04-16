@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^view/outpatient/bookings/', views.view_outpatient, name='OutBook'),
     url(r'^view/inpatient/bookings/', views.view_inpatient, name='InBook'),
     url(r'^choose/service', views.choose, name='Choose'),
+    url(r'^test/', views.view_test, name='Test'), # this is just a test url
 
     # url(r'^view/message/', views.message, name='Message'),
     url(r'^accounts/', include('registration.backends.simple.urls')),
