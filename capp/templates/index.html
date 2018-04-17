@@ -33,23 +33,29 @@
 
 <div class="col-md-6">
 
-                    {% if profile.user_type == 'admin' %}
-                          <section class=""style="margin-top:40px;">
-                              <p uk-margin>
-                                  <a href="{% url 'OutBook' %}">
-                                    <button class="uk-button uk-button-secondary uk-button-large" style="background-color:rgb(9, 248, 255);font-size:15px;">Out-Patient</button>
-                                  </a>
+     <!-- {% if profile.user_type != 'admin' %}
+    <button class="uk-button uk-button-secondary uk-button-large" style="background-color:rgb(9, 248, 255);font-size:15px;">Out-Patient</button>
+    <button class="uk-button uk-button-secondary uk-button-large" style="background-color:rgb(9, 248, 255);font-size:15px;">Out-Patient</button>
+    <button class="uk-button uk-button-secondary uk-button-large" style="background-color:rgb(9, 248, 255);font-size:15px;">Out-Patient</button>
+    {% endif %} -->
 
-                                  <a href="{% url 'InBook' %}">
-                                    <button class="uk-button uk-button-secondary uk-button-large" style="border-color:rgb(9, 248, 255);font-size:15px;">In-Patient</button>
-                                  </a>
+    {% if profile.user_type == "admin" %} 
+    <section class=""style="margin-top:40px;">
+        <p uk-margin>
+            <a href="{% url 'OutBook' %}">
+              <button class="uk-button uk-button-secondary uk-button-large" style="background-color:rgb(9, 248, 255);font-size:15px;">Out-Patient</button>
+            </a>
 
-                                  <a href="{% url 'ViewRecord' %}">
-                                    <button class="uk-button uk-button-primary uk-button-large" style="background-color:rgb(9, 248, 255););font-size:15px;">View Records</button>
-                                  </a>
-                              </p>
-                          </section>
-                    {% endif %}
+            <a href="{% url 'InBook' %}">
+              <button class="uk-button uk-button-secondary uk-button-large" style="border-color:rgb(9, 248, 255);font-size:15px;">In-Patient</button>
+            </a>
+
+            <a href="{% url 'ViewRecord' %}">
+              <button class="uk-button uk-button-primary uk-button-large" style="background-color:rgb(9, 248, 255););font-size:15px;">View Records</button>
+            </a>
+        </p>
+        </section>
+    {% endif %}
 
 
 </div>

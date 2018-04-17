@@ -28,8 +28,9 @@ def index(request):
             'email' : 'default@mail.com'
             })
     else:
-        profile = Profile.objects.filter(user = current_user.id)
-    return render(request, 'index.html', { "title": title, "profile": profile})
+        profile = Profile.objects.get(user = current_user.id)
+        user_type = profile.user_type
+    return render(request, 'index.html', { "title": title, "profile": profile,"user_type":user_type})
 
 def choose(request):
     title = 'BADILI'
